@@ -1,1 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"
+/>
+
+<title>赵可睿生日快乐 🎂</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- 星空背景 -->
+
+<canvas id="stars"></canvas>
+
+<!-- 烟花 -->
+
+<canvas id="fireworks"></canvas>
+
+<!-- 爱心粒子 -->
+
+<div id="hearts"></div>
+
+<!-- 彩带 -->
+
+<div id="confetti"></div>
+
+<!-- =========================
+     封面
+========================= -->
+
+<section id="cover">
+
+    <div class="cover-card">
+
+        <div class="glow"></div>
+
+        <h3>To</h3>
+
+        <h1>赵可睿</h1>
+
+        <p>点击开启生日惊喜 ✨</p>
+
+        <button id="startBtn">
+            开启惊喜
+        </button>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     主舞台
+========================= -->
+
+<section id="stage">
+
+    <div id="scene">
+
+        <div id="world">
+
+            <!-- 第一层礼盒 -->
+
+            <div
+            class="gift-box level1"
+            id="box1"
+            >
+
+                <div class="lid lid-front"></div>
+                <div class="lid lid-back"></div>
+                <div class="lid lid-left"></div>
+                <div class="lid lid-right"></div>
+
+                <div class="body">
+
+                    <div class="ribbon-v"></div>
+
+                    <div class="ribbon-h"></div>
+
+                    <div class="bow">
+
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 第二层礼盒 -->
+
+            <div
+            class="gift-box level2 hidden"
+            id="box2"
+            >
+
+                <div class="lid lid-front"></div>
+                <div class="lid lid-back"></div>
+                <div class="lid lid-left"></div>
+                <div class="lid lid-right"></div>
+
+                <div class="body">
+
+                    <div class="ribbon-v"></div>
+
+                    <div class="ribbon-h"></div>
+
+                    <div class="bow">
+
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 第三层礼盒 -->
+
+            <div
+            class="gift-box level3 hidden"
+            id="box3"
+            >
+
+                <div class="lid lid-front"></div>
+                <div class="lid lid-back"></div>
+                <div class="lid lid-left"></div>
+                <div class="lid lid-right"></div>
+
+                <div class="body">
+
+                    <div class="ribbon-v"></div>
+
+                    <div class="ribbon-h"></div>
+
+                    <div class="bow">
+
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 蛋糕
+            ========================= -->
+
+            <div
+            id="cakeContainer"
+            class="hidden"
+            >
+
+                <div id="cake">
+
+                    <div class="tier tier1"></div>
+
+                    <div class="tier tier2"></div>
+
+                    <div class="tier tier3"></div>
+
+                    <div class="candle">
+
+                        <div class="flame"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="cake-glow"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hint">
+
+        拖动旋转礼盒 · 点击打开
+
+    </div>
+
+</section>
+
+<!-- =========================
+     祝福信
+========================= -->
+
+<section id="letterSection">
+
+    <div id="letterCard">
+
+        <h2>
+
+            🎂 Happy Birthday 🎂
+
+        </h2>
+
+        <div id="typingText"></div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     音乐
+========================= -->
+
+<audio
+id="bgm"
+loop
+preload="auto"
+>
+
+    <source
+    src="assets/music.mp3"
+    type="audio/mpeg"
+    />
+
+</audio>
+
+<script src="script.js"></script>
+
+</body>
+</html>
