@@ -7,10 +7,10 @@
 
 <meta
 name="viewport"
-content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"
+content="width=device-width,initial-scale=1.0"
 />
 
-<title>赵可睿生日快乐 🎂</title>
+<title>赵可睿生日快乐</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -18,7 +18,7 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
 
 <body>
 
-<!-- 星空背景 -->
+<!-- 星空 -->
 
 <canvas id="stars"></canvas>
 
@@ -26,7 +26,7 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
 
 <canvas id="fireworks"></canvas>
 
-<!-- 爱心粒子 -->
+<!-- 爱心 -->
 
 <div id="hearts"></div>
 
@@ -34,15 +34,13 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
 
 <div id="confetti"></div>
 
-<!-- =========================
-     封面
-========================= -->
+<!-- =====================
+     开场封面
+===================== -->
 
 <section id="cover">
 
-    <div class="cover-card">
-
-        <div class="glow"></div>
+    <div class="coverCard">
 
         <h3>To</h3>
 
@@ -51,16 +49,16 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
         <p>点击开启生日惊喜 ✨</p>
 
         <button id="startBtn">
-            开启惊喜
+            开启
         </button>
 
     </div>
 
 </section>
 
-<!-- =========================
-     主舞台
-========================= -->
+<!-- =====================
+     主场景
+===================== -->
 
 <section id="stage">
 
@@ -68,119 +66,92 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
 
         <div id="world">
 
-            <!-- 第一层礼盒 -->
+            <!-- 第一层盒子 -->
 
             <div
-            class="gift-box level1"
+            class="cube cube1"
             id="box1"
             >
 
-                <div class="lid lid-front"></div>
-                <div class="lid lid-back"></div>
-                <div class="lid lid-left"></div>
-                <div class="lid lid-right"></div>
+                <div class="face front"></div>
+                <div class="face back"></div>
 
-                <div class="body">
+                <div class="face right"></div>
+                <div class="face left"></div>
 
-                    <div class="ribbon-v"></div>
-
-                    <div class="ribbon-h"></div>
-
-                    <div class="bow">
-
-                        <span></span>
-                        <span></span>
-
-                    </div>
-
-                </div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
 
             </div>
 
-            <!-- 第二层礼盒 -->
+            <!-- 第二层盒子 -->
 
             <div
-            class="gift-box level2 hidden"
+            class="cube cube2 hidden"
             id="box2"
             >
 
-                <div class="lid lid-front"></div>
-                <div class="lid lid-back"></div>
-                <div class="lid lid-left"></div>
-                <div class="lid lid-right"></div>
+                <div class="face front"></div>
+                <div class="face back"></div>
 
-                <div class="body">
+                <div class="face right"></div>
+                <div class="face left"></div>
 
-                    <div class="ribbon-v"></div>
-
-                    <div class="ribbon-h"></div>
-
-                    <div class="bow">
-
-                        <span></span>
-                        <span></span>
-
-                    </div>
-
-                </div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
 
             </div>
 
-            <!-- 第三层礼盒 -->
+            <!-- 第三层盒子 -->
 
             <div
-            class="gift-box level3 hidden"
+            class="cube cube3 hidden"
             id="box3"
             >
 
-                <div class="lid lid-front"></div>
-                <div class="lid lid-back"></div>
-                <div class="lid lid-left"></div>
-                <div class="lid lid-right"></div>
+                <div class="face front"></div>
+                <div class="face back"></div>
 
-                <div class="body">
+                <div class="face right"></div>
+                <div class="face left"></div>
 
-                    <div class="ribbon-v"></div>
-
-                    <div class="ribbon-h"></div>
-
-                    <div class="bow">
-
-                        <span></span>
-                        <span></span>
-
-                    </div>
-
-                </div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
 
             </div>
 
-            <!-- =========================
-                 蛋糕
-            ========================= -->
+            <!-- =====================
+                 书本
+            ===================== -->
 
             <div
-            id="cakeContainer"
+            id="bookContainer"
             class="hidden"
             >
 
-                <div id="cake">
+                <div id="book">
 
-                    <div class="tier tier1"></div>
+                    <!-- 左页 -->
 
-                    <div class="tier tier2"></div>
+                    <div class="page leftPage"></div>
 
-                    <div class="tier tier3"></div>
+                    <!-- 右页 -->
 
-                    <div class="candle">
+                    <div class="page rightPage"></div>
 
-                        <div class="flame"></div>
+                    <!-- 封面 -->
+
+                    <div id="bookCover">
+
+                        <div class="bookTitle">
+
+                            给赵可睿
+
+                        </div>
 
                     </div>
 
                 </div>
-
-                <div class="cake-glow"></div>
 
             </div>
 
@@ -188,17 +159,11 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
 
     </div>
 
-    <div class="hint">
-
-        拖动旋转礼盒 · 点击打开
-
-    </div>
-
 </section>
 
-<!-- =========================
-     祝福信
-========================= -->
+<!-- =====================
+     信件
+===================== -->
 
 <section id="letterSection">
 
@@ -206,7 +171,7 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
 
         <h2>
 
-            🎂 Happy Birthday 🎂
+            给赵可睿
 
         </h2>
 
@@ -216,9 +181,7 @@ content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no
 
 </section>
 
-<!-- =========================
-     音乐
-========================= -->
+<!-- 音乐 -->
 
 <audio
 id="bgm"
@@ -229,7 +192,7 @@ preload="auto"
     <source
     src="assets/music.mp3"
     type="audio/mpeg"
-    />
+    >
 
 </audio>
 
