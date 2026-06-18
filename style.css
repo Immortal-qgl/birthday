@@ -1,5 +1,5 @@
-/* =========================
-   全局
+ /* =========================
+   RESET
 ========================= */
 
 *{
@@ -8,21 +8,16 @@
     box-sizing:border-box;
 }
 
-html,
-body{
-
+html,body{
     width:100%;
     height:100%;
-
     overflow:hidden;
-
     font-family:
     "Microsoft YaHei",
     sans-serif;
 }
 
 body{
-
     background:
     radial-gradient(
         circle at top,
@@ -30,143 +25,102 @@ body{
         #0f1930 45%,
         #050913 100%
     );
-
     color:white;
 }
 
 /* =========================
-   星空烟花层
+   背景层
 ========================= */
 
 #stars,
 #fireworks{
-
     position:fixed;
-
     inset:0;
-
     width:100%;
     height:100%;
-
     pointer-events:none;
 }
 
-#stars{
-    z-index:1;
-}
-
-#fireworks{
-    z-index:2;
-}
+#stars{z-index:1;}
+#fireworks{z-index:2;}
 
 #hearts,
 #confetti{
-
     position:fixed;
     inset:0;
-
     pointer-events:none;
 }
 
-#hearts{
-    z-index:3;
-}
-
-#confetti{
-    z-index:4;
-}
+#hearts{z-index:3;}
+#confetti{z-index:4;}
 
 /* =========================
    封面
 ========================= */
 
 #cover{
-
     position:fixed;
-
     inset:0;
-
-    z-index:1000;
+    z-index:9999;
 
     display:flex;
-
     justify-content:center;
     align-items:center;
 
-    background:
-    rgba(0,0,0,.4);
-
-    backdrop-filter:
-    blur(12px);
+    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,.4);
 
     transition:1s;
 }
 
 .coverCard{
-
     padding:50px;
+    border-radius:30px;
 
     text-align:center;
-
-    border-radius:30px;
 
     background:
     rgba(255,255,255,.08);
 
     border:
-    1px solid rgba(255,255,255,.15);
-
-    box-shadow:
-    0 0 40px rgba(255,255,255,.08);
+    1px solid rgba(255,255,255,.12);
 }
 
 .coverCard h1{
-
     font-size:60px;
-
     margin:15px 0;
 }
 
-.coverCard p{
-
-    margin:20px 0;
-}
-
 #startBtn{
-
-    padding:
-    15px 35px;
+    margin-top:20px;
 
     border:none;
 
     border-radius:999px;
 
-    background:
-    linear-gradient(
-        45deg,
-        #ff6ba5,
-        #ffb9dc
-    );
+    padding:15px 35px;
+
+    cursor:pointer;
 
     color:white;
 
-    font-size:18px;
-
-    cursor:pointer;
+    background:
+    linear-gradient(
+        45deg,
+        #ff6ea8,
+        #ffb6d6
+    );
 }
 
 /* =========================
-   主舞台
+   舞台
 ========================= */
 
 #stage{
-
     position:absolute;
-
     inset:0;
 
     display:flex;
-
     justify-content:center;
     align-items:center;
 
@@ -174,14 +128,12 @@ body{
 }
 
 #scene{
-
-    perspective:1800px;
+    perspective:2200px;
 }
 
 #world{
-
-    width:600px;
-    height:600px;
+    width:700px;
+    height:700px;
 
     position:relative;
 
@@ -190,85 +142,79 @@ body{
 }
 
 /* =========================
-   立方体
+   礼盒
 ========================= */
 
-.cube{
+.gift-box{
 
     position:absolute;
 
-    top:50%;
     left:50%;
+    top:50%;
 
     transform-style:
     preserve-3d;
 
     cursor:pointer;
-
-    transition:
-    transform 1.2s ease,
-    opacity 1s ease;
 }
 
 /* =========================
-   大盒子
+   尺寸
 ========================= */
 
-.cube1{
+.size1{
+    width:260px;
+    height:260px;
 
-    width:240px;
-    height:240px;
-
-    margin-left:-120px;
-    margin-top:-120px;
+    margin-left:-130px;
+    margin-top:-130px;
 }
 
-/* 中盒子 */
+.size2{
+    width:190px;
+    height:190px;
 
-.cube2{
-
-    width:180px;
-    height:180px;
-
-    margin-left:-90px;
-    margin-top:-90px;
+    margin-left:-95px;
+    margin-top:-95px;
 }
 
-/* 小盒子 */
+.size3{
+    width:130px;
+    height:130px;
 
-.cube3{
-
-    width:120px;
-    height:120px;
-
-    margin-left:-60px;
-    margin-top:-60px;
+    margin-left:-65px;
+    margin-top:-65px;
 }
 
 /* =========================
    面
 ========================= */
 
-.face{
+.lid,
+.panel,
+.bottom{
 
     position:absolute;
 
-    width:100%;
-    height:100%;
-
-    border:
-    2px solid rgba(255,255,255,.15);
-
-    box-shadow:
-    inset 0 0 30px rgba(255,255,255,.08);
-
-    backdrop-filter:
-    blur(3px);
+    transition:
+    transform 1s ease,
+    opacity 1s ease;
 }
 
-/* 第一层颜色 */
+/* =========================
+   第一层
+========================= */
 
-.cube1 .face{
+.size1 .lid,
+.size1 .panel,
+.size1 .bottom{
+
+    width:260px;
+    height:260px;
+}
+
+.size1 .lid,
+.size1 .bottom{
 
     background:
     linear-gradient(
@@ -278,109 +224,223 @@ body{
     );
 }
 
-/* 第二层颜色 */
-
-.cube2 .face{
+.size1 .panel{
 
     background:
     linear-gradient(
         135deg,
-        #79ffd0,
-        #c8fff0
+        #ff5d9b,
+        #ff95bf
     );
 }
 
-/* 第三层颜色 */
+/* =========================
+   第二层
+========================= */
 
-.cube3 .face{
+.size2 .lid,
+.size2 .panel,
+.size2 .bottom{
+
+    width:190px;
+    height:190px;
+}
+
+.size2 .lid,
+.size2 .bottom{
 
     background:
     linear-gradient(
         135deg,
-        #bca8ff,
-        #ebe5ff
+        #73ffd1,
+        #d9fff3
+    );
+}
+
+.size2 .panel{
+
+    background:
+    linear-gradient(
+        135deg,
+        #5cf1c1,
+        #a7ffe8
     );
 }
 
 /* =========================
-   六个面
+   第三层
 ========================= */
 
-/* 240盒子 */
+.size3 .lid,
+.size3 .panel,
+.size3 .bottom{
 
-.cube1 .front{
-    transform:translateZ(120px);
-}
-.cube1 .back{
-    transform:rotateY(180deg) translateZ(120px);
-}
-.cube1 .right{
-    transform:rotateY(90deg) translateZ(120px);
-}
-.cube1 .left{
-    transform:rotateY(-90deg) translateZ(120px);
-}
-.cube1 .top{
-    transform:rotateX(90deg) translateZ(120px);
-}
-.cube1 .bottom{
-    transform:rotateX(-90deg) translateZ(120px);
+    width:130px;
+    height:130px;
 }
 
-/* 180盒子 */
+.size3 .lid,
+.size3 .bottom{
 
-.cube2 .front{
-    transform:translateZ(90px);
-}
-.cube2 .back{
-    transform:rotateY(180deg) translateZ(90px);
-}
-.cube2 .right{
-    transform:rotateY(90deg) translateZ(90px);
-}
-.cube2 .left{
-    transform:rotateY(-90deg) translateZ(90px);
-}
-.cube2 .top{
-    transform:rotateX(90deg) translateZ(90px);
-}
-.cube2 .bottom{
-    transform:rotateX(-90deg) translateZ(90px);
+    background:
+    linear-gradient(
+        135deg,
+        #bda6ff,
+        #ece4ff
+    );
 }
 
-/* 120盒子 */
+.size3 .panel{
 
-.cube3 .front{
-    transform:translateZ(60px);
-}
-.cube3 .back{
-    transform:rotateY(180deg) translateZ(60px);
-}
-.cube3 .right{
-    transform:rotateY(90deg) translateZ(60px);
-}
-.cube3 .left{
-    transform:rotateY(-90deg) translateZ(60px);
-}
-.cube3 .top{
-    transform:rotateX(90deg) translateZ(60px);
-}
-.cube3 .bottom{
-    transform:rotateX(-90deg) translateZ(60px);
+    background:
+    linear-gradient(
+        135deg,
+        #a58cff,
+        #d8cdff
+    );
 }
 
 /* =========================
-   打开盒子
+   第一层定位
 ========================= */
 
-.cube.open .top{
-
-    transition:1.2s;
-
+.size1 .bottom{
     transform:
-    rotateX(180deg)
-    translateZ(0px)
-    translateY(-220px);
+    rotateX(-90deg)
+    translateZ(130px);
+}
+
+.size1 .lid{
+    transform:
+    rotateX(90deg)
+    translateZ(130px);
+}
+
+.size1 .front{
+    transform:
+    translateZ(130px);
+}
+
+.size1 .back{
+    transform:
+    rotateY(180deg)
+    translateZ(130px);
+}
+
+.size1 .left{
+    transform:
+    rotateY(-90deg)
+    translateZ(130px);
+}
+
+.size1 .right{
+    transform:
+    rotateY(90deg)
+    translateZ(130px);
+}
+
+/* 第二层 */
+
+.size2 .bottom{
+    transform:
+    rotateX(-90deg)
+    translateZ(95px);
+}
+
+.size2 .lid{
+    transform:
+    rotateX(90deg)
+    translateZ(95px);
+}
+
+.size2 .front{
+    transform:
+    translateZ(95px);
+}
+
+.size2 .back{
+    transform:
+    rotateY(180deg)
+    translateZ(95px);
+}
+
+.size2 .left{
+    transform:
+    rotateY(-90deg)
+    translateZ(95px);
+}
+
+.size2 .right{
+    transform:
+    rotateY(90deg)
+    translateZ(95px);
+}
+
+/* 第三层 */
+
+.size3 .bottom{
+    transform:
+    rotateX(-90deg)
+    translateZ(65px);
+}
+
+.size3 .lid{
+    transform:
+    rotateX(90deg)
+    translateZ(65px);
+}
+
+.size3 .front{
+    transform:
+    translateZ(65px);
+}
+
+.size3 .back{
+    transform:
+    rotateY(180deg)
+    translateZ(65px);
+}
+
+.size3 .left{
+    transform:
+    rotateY(-90deg)
+    translateZ(65px);
+}
+
+.size3 .right{
+    transform:
+    rotateY(90deg)
+    translateZ(65px);
+}
+
+/* =========================
+   打开动画
+========================= */
+
+.gift-box.open .lid{
+    opacity:0;
+}
+
+.gift-box.open .front{
+    transform:
+    translateZ(0)
+    rotateX(-110deg);
+}
+
+.gift-box.open .back{
+    transform:
+    rotateY(180deg)
+    rotateX(110deg);
+}
+
+.gift-box.open .left{
+    transform:
+    rotateY(-180deg);
+}
+
+.gift-box.open .right{
+    transform:
+    rotateY(180deg);
 }
 
 /* =========================
@@ -395,24 +455,50 @@ body{
     top:50%;
 
     transform:
-    translate(-50%,-50%);
-
-    transition:1s;
+    translate(-50%,-50%)
+    translateZ(15px);
 }
-
-/* 整本书 */
 
 #book{
 
-    width:280px;
-    height:200px;
+    width:220px;
+    height:150px;
 
     position:relative;
 
     transform-style:
     preserve-3d;
 
+    transform:
+    rotateX(75deg);
+
     cursor:pointer;
+}
+
+/* 书页 */
+
+.bookPages{
+
+    position:absolute;
+
+    inset:0;
+
+    background:#fffef7;
+
+    transform:
+    translateZ(6px);
+}
+
+/* 封底 */
+
+.bookBack{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    #9d6b3c;
 }
 
 /* 封面 */
@@ -421,74 +507,38 @@ body{
 
     position:absolute;
 
-    width:100%;
-    height:100%;
+    inset:0;
 
     background:
     linear-gradient(
         135deg,
-        #6a3d1f,
-        #9c6338
+        #7d4f26,
+        #b37a45
     );
-
-    border-radius:8px;
 
     transform-origin:
     left center;
 
     transition:1.5s;
 
-    box-shadow:
-    0 20px 40px rgba(0,0,0,.4);
+    transform:
+    translateZ(12px);
 
     display:flex;
-
     justify-content:center;
     align-items:center;
 }
 
 .bookTitle{
-
-    font-size:28px;
-
-    font-weight:bold;
-
+    font-size:24px;
     color:#fff4d7;
+    font-weight:bold;
 }
 
-/* 书页 */
-
-.page{
-
-    position:absolute;
-
-    top:0;
-
-    width:50%;
-    height:100%;
-
-    background:
-    #fffef7;
-}
-
-.leftPage{
-
-    left:0;
-
-    border-right:
-    1px solid #ddd;
-}
-
-.rightPage{
-
-    right:0;
-}
-
-/* 打开书 */
-
-.book-open #bookCover{
+#book.book-open #bookCover{
 
     transform:
+    translateZ(12px)
     rotateY(-160deg);
 }
 
@@ -499,22 +549,20 @@ body{
 #letterSection{
 
     position:fixed;
-
     inset:0;
 
     display:flex;
-
     justify-content:center;
     align-items:center;
 
     pointer-events:none;
 
-    z-index:500;
+    z-index:300;
 }
 
 #letterCard{
 
-    width:min(90vw,800px);
+    width:min(90vw,850px);
 
     padding:40px;
 
@@ -545,84 +593,11 @@ body{
     scale(1);
 }
 
-#letterCard h2{
-
-    text-align:center;
-
-    margin-bottom:25px;
-}
-
 #typingText{
 
-    white-space:pre-wrap;
-
     line-height:2;
-
     font-size:20px;
-}
-
-/* =========================
-   粒子
-========================= */
-
-.heart{
-
-    position:absolute;
-
-    color:#ff84b8;
-
-    animation:
-    heartFloat 6s linear forwards;
-}
-
-@keyframes heartFloat{
-
-    from{
-
-        opacity:0;
-
-        transform:
-        translateY(0)
-        scale(.5);
-    }
-
-    20%{
-        opacity:1;
-    }
-
-    to{
-
-        opacity:0;
-
-        transform:
-        translateY(-500px)
-        scale(1.5);
-    }
-}
-
-.confetti-piece{
-
-    position:absolute;
-
-    width:10px;
-    height:18px;
-
-    border-radius:3px;
-
-    animation:
-    confettiFall 3s linear forwards;
-}
-
-@keyframes confettiFall{
-
-    to{
-
-        transform:
-        translateY(600px)
-        rotate(720deg);
-
-        opacity:0;
-    }
+    white-space:pre-wrap;
 }
 
 /* =========================
@@ -630,7 +605,6 @@ body{
 ========================= */
 
 .hidden{
-
     display:none;
 }
 
@@ -638,16 +612,14 @@ body{
    手机适配
 ========================= */
 
-@media (max-width:768px){
+@media(max-width:768px){
 
     #world{
-
-        width:350px;
-        height:350px;
+        width:360px;
+        height:360px;
     }
 
-    .cube1{
-
+    .size1{
         width:180px;
         height:180px;
 
@@ -655,8 +627,7 @@ body{
         margin-top:-90px;
     }
 
-    .cube2{
-
+    .size2{
         width:130px;
         height:130px;
 
@@ -664,8 +635,7 @@ body{
         margin-top:-65px;
     }
 
-    .cube3{
-
+    .size3{
         width:90px;
         height:90px;
 
@@ -674,18 +644,15 @@ body{
     }
 
     #book{
-
-        width:220px;
-        height:160px;
+        width:180px;
+        height:120px;
     }
 
     .coverCard h1{
-
         font-size:42px;
     }
 
     #typingText{
-
         font-size:16px;
     }
 }
