@@ -2,14 +2,23 @@
    获取元素
 ========================= */
 
-const cover = document.getElementById("cover");
-const startBtn = document.getElementById("startBtn");
+const cover =
+document.getElementById("cover");
 
-const world = document.getElementById("world");
+const startBtn =
+document.getElementById("startBtn");
 
-const box1 = document.getElementById("box1");
-const box2 = document.getElementById("box2");
-const box3 = document.getElementById("box3");
+const world =
+document.getElementById("world");
+
+const box1 =
+document.getElementById("box1");
+
+const box2 =
+document.getElementById("box2");
+
+const box3 =
+document.getElementById("box3");
 
 const bookContainer =
 document.getElementById("bookContainer");
@@ -23,11 +32,8 @@ document.getElementById("letterCard");
 const typingText =
 document.getElementById("typingText");
 
-const starsCanvas =
-document.getElementById("stars");
-
-const fireCanvas =
-document.getElementById("fireworks");
+const bgm =
+document.getElementById("bgm");
 
 const hearts =
 document.getElementById("hearts");
@@ -35,11 +41,14 @@ document.getElementById("hearts");
 const confetti =
 document.getElementById("confetti");
 
-const bgm =
-document.getElementById("bgm");
+const starsCanvas =
+document.getElementById("stars");
+
+const fireCanvas =
+document.getElementById("fireworks");
 
 /* =========================
-   状态
+   状态机
 ========================= */
 
 let stage = 0;
@@ -59,7 +68,7 @@ let stage = 0;
 */
 
 /* =========================
-   开始
+   开始按钮
 ========================= */
 
 startBtn.addEventListener("click", () => {
@@ -76,10 +85,9 @@ startBtn.addEventListener("click", () => {
 
     initStars();
 
-    initHearts();
-
     initFireworks();
 
+    initHearts();
 });
 
 /* =========================
@@ -90,17 +98,17 @@ function playMusic(){
 
     if(!bgm) return;
 
-    bgm.volume = 0.5;
+    bgm.volume = 0.45;
 
     bgm.play().catch(()=>{});
 }
 
 /* =========================
-   鼠标旋转
+   场景旋转
 ========================= */
 
-let rotateX = -20;
-let rotateY = 30;
+let rotateX = -18;
+let rotateY = 28;
 
 let dragging = false;
 
@@ -110,11 +118,15 @@ let lastY = 0;
 function updateWorld(){
 
     world.style.transform =
-    `rotateX(${rotateX}deg)
-     rotateY(${rotateY}deg)`;
+    `
+    rotateX(${rotateX}deg)
+    rotateY(${rotateY}deg)
+    `;
 }
 
 updateWorld();
+
+/* PC */
 
 world.addEventListener("mousedown",(e)=>{
 
@@ -133,11 +145,11 @@ window.addEventListener("mousemove",(e)=>{
 
     if(!dragging) return;
 
-    let dx = e.clientX - lastX;
-    let dy = e.clientY - lastY;
+    rotateY +=
+    (e.clientX-lastX)*0.35;
 
-    rotateY += dx * 0.4;
-    rotateX -= dy * 0.4;
+    rotateX -=
+    (e.clientY-lastY)*0.35;
 
     updateWorld();
 
@@ -145,32 +157,38 @@ window.addEventListener("mousemove",(e)=>{
     lastY = e.clientY;
 });
 
-/* =========================
-   手机触摸
-========================= */
+/* 手机 */
 
 world.addEventListener("touchstart",(e)=>{
 
     dragging = true;
 
-    lastX = e.touches[0].clientX;
-    lastY = e.touches[0].clientY;
+    lastX =
+    e.touches[0].clientX;
+
+    lastY =
+    e.touches[0].clientY;
 });
 
 world.addEventListener("touchmove",(e)=>{
 
     if(!dragging) return;
 
-    let dx = e.touches[0].clientX - lastX;
-    let dy = e.touches[0].clientY - lastY;
+    rotateY +=
+    (e.touches[0].clientX-lastX)
+    *0.3;
 
-    rotateY += dx * 0.4;
-    rotateX -= dy * 0.4;
+    rotateX -=
+    (e.touches[0].clientY-lastY)
+    *0.3;
 
     updateWorld();
 
-    lastX = e.touches[0].clientX;
-    lastY = e.touches[0].clientY;
+    lastX =
+    e.touches[0].clientX;
+
+    lastY =
+    e.touches[0].clientY;
 });
 
 world.addEventListener("touchend",()=>{
@@ -179,66 +197,72 @@ world.addEventListener("touchend",()=>{
 });
 
 /* =========================
-   礼盒1
+   展开动画
+========================= */
+
+function openGift(box){
+
+    box.classList.add("open");
+
+    burstConfetti();
+}
+
+/* =========================
+   第一层
 ========================= */
 
 box1.addEventListener("click",()=>{
 
-    if(stage !== 0) return;
+    if(stage!==0) return;
 
-    box1.classList.add("open");
+    openGift(box1);
 
-    burstConfetti();
+    stage = 1;
 
     setTimeout(()=>{
 
         box2.classList.remove("hidden");
 
-    },1200);
-
-    stage = 1;
+    },1300);
 });
 
 /* =========================
-   礼盒2
+   第二层
 ========================= */
 
 box2.addEventListener("click",()=>{
 
-    if(stage !== 1) return;
+    if(stage!==1) return;
 
-    box2.classList.add("open");
+    openGift(box2);
 
-    burstConfetti();
+    stage = 2;
 
     setTimeout(()=>{
 
         box3.classList.remove("hidden");
 
-    },1200);
-
-    stage = 2;
+    },1300);
 });
 
 /* =========================
-   礼盒3
+   第三层
 ========================= */
 
 box3.addEventListener("click",()=>{
 
-    if(stage !== 2) return;
+    if(stage!==2) return;
 
-    box3.classList.add("open");
+    openGift(box3);
 
-    burstConfetti();
+    stage = 3;
 
     setTimeout(()=>{
 
-        bookContainer.classList.remove("hidden");
+        bookContainer
+        .classList.remove("hidden");
 
-    },1200);
-
-    stage = 3;
+    },1400);
 });
 
 /* =========================
@@ -247,7 +271,7 @@ box3.addEventListener("click",()=>{
 
 book.addEventListener("click",()=>{
 
-    if(stage !== 3) return;
+    if(stage!==3) return;
 
     book.classList.add("book-open");
 
@@ -257,20 +281,21 @@ book.addEventListener("click",()=>{
 
         showLetter();
 
-        stage = 5;
-
-    },1600);
+    },1700);
 });
 
 /* =========================
-   信件
+   打字机
 ========================= */
 
 function showLetter(){
 
     letterCard.classList.add("show");
 
-    const text =
+    typingText.style.color =
+    "#fff8e8";
+
+    const message =
 
 `首先还是祝你生日快乐，祝你大学四年不为期末考试困扰，每天都有个好心情，其他套话我就不说了。
 
@@ -282,20 +307,21 @@ function showLetter(){
 
 愿友谊长存！`;
 
-    let index = 0;
-
     typingText.innerHTML = "";
+
+    let index = 0;
 
     function type(){
 
-        if(index >= text.length){
+        if(index>=message.length){
 
-            burstMegaFireworks();
+            megaFireworks();
 
             return;
         }
 
-        typingText.innerHTML += text[index];
+        typingText.innerHTML +=
+        message[index];
 
         index++;
 
@@ -306,7 +332,7 @@ function showLetter(){
 }
 
 /* =========================
-   爱心
+   爱心粒子
 ========================= */
 
 function initHearts(){
@@ -316,18 +342,18 @@ function initHearts(){
         const heart =
         document.createElement("div");
 
-        heart.className = "heart";
-
         heart.innerHTML = "❤";
 
+        heart.className = "heart";
+
         heart.style.left =
-        Math.random()*100 + "vw";
+        Math.random()*100+"vw";
 
         heart.style.top =
         "100vh";
 
         heart.style.fontSize =
-        (16 + Math.random()*24) + "px";
+        (18+Math.random()*18)+"px";
 
         hearts.appendChild(heart);
 
@@ -337,7 +363,7 @@ function initHearts(){
 
         },6000);
 
-    },500);
+    },450);
 }
 
 /* =========================
@@ -349,14 +375,14 @@ function burstConfetti(){
     const colors =
 
     [
-        "#ff6ba5",
+        "#ff6ea8",
         "#ffd54f",
-        "#6bcfff",
-        "#a5ff6b",
+        "#79ffd0",
+        "#bca8ff",
         "#ffffff"
     ];
 
-    for(let i=0;i<60;i++){
+    for(let i=0;i<80;i++){
 
         const piece =
         document.createElement("div");
@@ -365,7 +391,7 @@ function burstConfetti(){
         "confetti-piece";
 
         piece.style.left =
-        Math.random()*100 + "vw";
+        Math.random()*100+"vw";
 
         piece.style.top =
         "-20px";
@@ -383,7 +409,7 @@ function burstConfetti(){
 
             piece.remove();
 
-        },3000);
+        },3500);
     }
 }
 
@@ -397,24 +423,22 @@ function initStars(){
     starsCanvas.getContext("2d");
 
     starsCanvas.width =
-    window.innerWidth;
+    innerWidth;
 
     starsCanvas.height =
-    window.innerHeight;
+    innerHeight;
 
-    let stars = [];
+    const stars = [];
 
-    for(let i=0;i<150;i++){
+    for(let i=0;i<180;i++){
 
         stars.push({
 
             x:
-            Math.random()
-            * starsCanvas.width,
+            Math.random()*innerWidth,
 
             y:
-            Math.random()
-            * starsCanvas.height,
+            Math.random()*innerHeight,
 
             r:
             Math.random()*2,
@@ -429,40 +453,35 @@ function initStars(){
         ctx.clearRect(
             0,
             0,
-            starsCanvas.width,
-            starsCanvas.height
+            innerWidth,
+            innerHeight
         );
 
-        stars.forEach(s=>{
+        stars.forEach(star=>{
 
             ctx.beginPath();
 
             ctx.arc(
-                s.x,
-                s.y,
-                s.r,
+                star.x,
+                star.y,
+                star.r,
                 0,
                 Math.PI*2
             );
 
             ctx.fillStyle =
-            `rgba(
-                255,
-                255,
-                255,
-                ${s.a}
-            )`;
+            `rgba(255,255,255,${star.a})`;
 
             ctx.fill();
 
-            s.a +=
+            star.a +=
             (Math.random()-0.5)
-            *0.02;
+            *0.03;
 
-            s.a =
+            star.a =
             Math.max(
                 0.2,
-                Math.min(1,s.a)
+                Math.min(1,star.a)
             );
         });
 
@@ -486,23 +505,24 @@ function initFireworks(){
     fireCanvas.getContext("2d");
 
     fireCanvas.width =
-    window.innerWidth;
+    innerWidth;
 
     fireCanvas.height =
-    window.innerHeight;
+    innerHeight;
 
-    function animate(){
+    function draw(){
 
         ctx.clearRect(
             0,
             0,
-            fireCanvas.width,
-            fireCanvas.height
+            innerWidth,
+            innerHeight
         );
 
         particles.forEach((p,i)=>{
 
             p.x += p.vx;
+
             p.y += p.vy;
 
             p.life--;
@@ -528,43 +548,39 @@ function initFireworks(){
             }
         });
 
-        requestAnimationFrame(
-            animate
-        );
+        requestAnimationFrame(draw);
     }
 
-    animate();
+    draw();
 }
 
-function burstMegaFireworks(){
+function megaFireworks(){
 
     const colors =
 
     [
-        "#ff6ba5",
+        "#ff6ea8",
         "#ffd54f",
-        "#6bcfff",
-        "#a5ff6b",
+        "#79ffd0",
+        "#bca8ff",
         "#ffffff"
     ];
 
-    for(let n=0;n<8;n++){
+    for(let burst=0; burst<10; burst++){
 
         setTimeout(()=>{
 
             let centerX =
-            Math.random()
-            * fireCanvas.width;
+            Math.random()*innerWidth;
 
             let centerY =
-            100 +
-            Math.random()*300;
+            120+
+            Math.random()*250;
 
-            for(let i=0;i<80;i++){
+            for(let i=0;i<90;i++){
 
                 let angle =
-                Math.random()
-                * Math.PI*2;
+                Math.random()*Math.PI*2;
 
                 let speed =
                 Math.random()*4+2;
@@ -575,12 +591,12 @@ function burstMegaFireworks(){
                     y:centerY,
 
                     vx:
-                    Math.cos(angle)
-                    * speed,
+                    Math.cos(angle)*speed,
 
                     vy:
-                    Math.sin(angle)
-                    * speed,
+                    Math.sin(angle)*speed,
+
+                    life:100,
 
                     color:
                     colors[
@@ -588,12 +604,10 @@ function burstMegaFireworks(){
                         Math.random()
                         * colors.length
                         )
-                    ],
-
-                    life:100
+                    ]
                 });
             }
 
-        },n*500);
+        },burst*500);
     }
 }
