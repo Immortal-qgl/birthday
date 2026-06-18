@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -7,7 +7,7 @@
 
 <meta
 name="viewport"
-content="width=device-width,initial-scale=1.0"
+content="width=device-width, initial-scale=1.0"
 />
 
 <title>赵可睿生日快乐</title>
@@ -18,7 +18,7 @@ content="width=device-width,initial-scale=1.0"
 
 <body>
 
-<!-- 星空 -->
+<!-- 星空背景 -->
 
 <canvas id="stars"></canvas>
 
@@ -26,7 +26,7 @@ content="width=device-width,initial-scale=1.0"
 
 <canvas id="fireworks"></canvas>
 
-<!-- 爱心 -->
+<!-- 爱心粒子 -->
 
 <div id="hearts"></div>
 
@@ -34,9 +34,9 @@ content="width=device-width,initial-scale=1.0"
 
 <div id="confetti"></div>
 
-<!-- =====================
-     开场封面
-===================== -->
+<!-- =========================
+     开场页
+========================= -->
 
 <section id="cover">
 
@@ -46,19 +46,25 @@ content="width=device-width,initial-scale=1.0"
 
         <h1>赵可睿</h1>
 
-        <p>点击开启生日惊喜 ✨</p>
+        <p>
+
+            点击开启生日惊喜 ✨
+
+        </p>
 
         <button id="startBtn">
+
             开启
+
         </button>
 
     </div>
 
 </section>
 
-<!-- =====================
+<!-- =========================
      主场景
-===================== -->
+========================= -->
 
 <section id="stage">
 
@@ -66,86 +72,95 @@ content="width=device-width,initial-scale=1.0"
 
         <div id="world">
 
-            <!-- 第一层盒子 -->
+            <!-- =====================================
+                 第一层礼盒
+            ====================================== -->
 
             <div
-            class="cube cube1"
+            class="gift-box size1"
             id="box1"
             >
 
-                <div class="face front"></div>
-                <div class="face back"></div>
+                <div class="lid"></div>
 
-                <div class="face right"></div>
-                <div class="face left"></div>
+                <div class="panel front"></div>
+                <div class="panel back"></div>
 
-                <div class="face top"></div>
-                <div class="face bottom"></div>
+                <div class="panel left"></div>
+                <div class="panel right"></div>
 
-            </div>
+                <div class="bottom"></div>
 
-            <!-- 第二层盒子 -->
+                <!-- =========================
+                     第二层礼盒
+                ========================= -->
 
-            <div
-            class="cube cube2 hidden"
-            id="box2"
-            >
+                <div
+                class="gift-box size2 hidden"
+                id="box2"
+                >
 
-                <div class="face front"></div>
-                <div class="face back"></div>
+                    <div class="lid"></div>
 
-                <div class="face right"></div>
-                <div class="face left"></div>
+                    <div class="panel front"></div>
+                    <div class="panel back"></div>
 
-                <div class="face top"></div>
-                <div class="face bottom"></div>
+                    <div class="panel left"></div>
+                    <div class="panel right"></div>
 
-            </div>
+                    <div class="bottom"></div>
 
-            <!-- 第三层盒子 -->
+                    <!-- =========================
+                         第三层礼盒
+                    ========================= -->
 
-            <div
-            class="cube cube3 hidden"
-            id="box3"
-            >
+                    <div
+                    class="gift-box size3 hidden"
+                    id="box3"
+                    >
 
-                <div class="face front"></div>
-                <div class="face back"></div>
+                        <div class="lid"></div>
 
-                <div class="face right"></div>
-                <div class="face left"></div>
+                        <div class="panel front"></div>
+                        <div class="panel back"></div>
 
-                <div class="face top"></div>
-                <div class="face bottom"></div>
+                        <div class="panel left"></div>
+                        <div class="panel right"></div>
 
-            </div>
+                        <div class="bottom"></div>
 
-            <!-- =====================
-                 书本
-            ===================== -->
+                        <!-- =========================
+                             书本
+                        ========================= -->
 
-            <div
-            id="bookContainer"
-            class="hidden"
-            >
+                        <div
+                        id="bookContainer"
+                        class="hidden"
+                        >
 
-                <div id="book">
+                            <div id="book">
 
-                    <!-- 左页 -->
+                                <!-- 封底 -->
 
-                    <div class="page leftPage"></div>
+                                <div class="bookBack"></div>
 
-                    <!-- 右页 -->
+                                <!-- 页面 -->
 
-                    <div class="page rightPage"></div>
+                                <div class="bookPages"></div>
 
-                    <!-- 封面 -->
+                                <!-- 封面 -->
 
-                    <div id="bookCover">
+                                <div id="bookCover">
 
-                        <div class="bookTitle">
+                                    <div class="bookTitle">
 
-                            给赵可睿
+                                        给赵可睿
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -161,9 +176,9 @@ content="width=device-width,initial-scale=1.0"
 
 </section>
 
-<!-- =====================
+<!-- =========================
      信件
-===================== -->
+========================= -->
 
 <section id="letterSection">
 
@@ -181,7 +196,9 @@ content="width=device-width,initial-scale=1.0"
 
 </section>
 
-<!-- 音乐 -->
+<!-- =========================
+     音乐
+========================= -->
 
 <audio
 id="bgm"
