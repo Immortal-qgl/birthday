@@ -1,6 +1,5 @@
-
-/* =========================
-   元素
+ /* =========================
+   获取元素
 ========================= */
 
 const cover = document.getElementById("cover");
@@ -12,18 +11,32 @@ const box1 = document.getElementById("box1");
 const box2 = document.getElementById("box2");
 const box3 = document.getElementById("box3");
 
-const cakeContainer = document.getElementById("cakeContainer");
+const bookContainer =
+document.getElementById("bookContainer");
 
-const letterCard = document.getElementById("letterCard");
-const typingText = document.getElementById("typingText");
+const book =
+document.getElementById("book");
 
-const bgm = document.getElementById("bgm");
+const letterCard =
+document.getElementById("letterCard");
 
-const hearts = document.getElementById("hearts");
-const confetti = document.getElementById("confetti");
+const typingText =
+document.getElementById("typingText");
 
-const starsCanvas = document.getElementById("stars");
-const fireCanvas = document.getElementById("fireworks");
+const starsCanvas =
+document.getElementById("stars");
+
+const fireCanvas =
+document.getElementById("fireworks");
+
+const hearts =
+document.getElementById("hearts");
+
+const confetti =
+document.getElementById("confetti");
+
+const bgm =
+document.getElementById("bgm");
 
 /* =========================
    状态
@@ -31,87 +44,265 @@ const fireCanvas = document.getElementById("fireworks");
 
 let stage = 0;
 
-/* =========================
-   音乐
-========================= */
+/*
+0 封面
 
-function playMusic(){
-    bgm.volume = 0.5;
-    bgm.play().catch(()=>{});
-}
+1 大盒子
+
+2 中盒子
+
+3 小盒子
+
+4 书
+
+5 信件
+*/
 
 /* =========================
    开始
 ========================= */
 
-startBtn.addEventListener("click", ()=>{
+startBtn.addEventListener("click", () => {
 
-    cover.style.opacity = 0;
+    cover.style.opacity = "0";
 
-    setTimeout(()=>{
+    setTimeout(() => {
+
         cover.style.display = "none";
-    },900);
+
+    }, 1000);
 
     playMusic();
 
-    init();
+    initStars();
+
+    initHearts();
+
+    initFireworks();
+
 });
 
 /* =========================
-   初始化
+   音乐
 ========================= */
 
-function init(){
+function playMusic(){
 
-    initStars();
-    initHearts();
-    initFireworks();
+    if(!bgm) return;
 
-    bindEvents();
+    bgm.volume = 0.5;
+
+    bgm.play().catch(()=>{});
 }
 
 /* =========================
-   星空
+   鼠标旋转
 ========================= */
 
-function initStars(){
+let rotateX = -20;
+let rotateY = 30;
 
-    const ctx = starsCanvas.getContext("2d");
+let dragging = false;
 
-    starsCanvas.width = innerWidth;
-    starsCanvas.height = innerHeight;
+let lastX = 0;
+let lastY = 0;
 
-    const stars = [];
+function updateWorld(){
 
-    for(let i=0;i<140;i++){
+    world.style.transform =
+    `rotateX(${rotateX}deg)
+     rotateY(${rotateY}deg)`;
+}
 
-        stars.push({
-            x:Math.random()*starsCanvas.width,
-            y:Math.random()*starsCanvas.height,
-            r:Math.random()*1.8,
-            a:Math.random()
-        });
-    }
+updateWorld();
 
-    function draw(){
+world.addEventListener("mousedown",(e)=>{
 
-        ctx.clearRect(0,0,starsCanvas.width,starsCanvas.height);
+    dragging = true;
 
-        for(let s of stars){
+    lastX = e.clientX;
+    lastY = e.clientY;
+});
 
-            ctx.beginPath();
-            ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-            ctx.fillStyle = `rgba(255,255,255,${s.a})`;
-            ctx.fill();
+window.addEventListener("mouseup",()=>{
 
-            s.a += (Math.random()-0.5)*0.03;
-            s.a = Math.max(0.2,Math.min(1,s.a));
+    dragging = false;
+});
+
+window.addEventListener("mousemove",(e)=>{
+
+    if(!dragging) return;
+
+    let dx = e.clientX - lastX;
+    let dy = e.clientY - lastY;
+
+    rotateY += dx * 0.4;
+    rotateX -= dy * 0.4;
+
+    updateWorld();
+
+    lastX = e.clientX;
+    lastY = e.clientY;
+});
+
+/* =========================
+   手机触摸
+========================= */
+
+world.addEventListener("touchstart",(e)=>{
+
+    dragging = true;
+
+    lastX = e.touches[0].clientX;
+    lastY = e.touches[0].clientY;
+});
+
+world.addEventListener("touchmove",(e)=>{
+
+    if(!dragging) return;
+
+    let dx = e.touches[0].clientX - lastX;
+    let dy = e.touches[0].clientY - lastY;
+
+    rotateY += dx * 0.4;
+    rotateX -= dy * 0.4;
+
+    updateWorld();
+
+    lastX = e.touches[0].clientX;
+    lastY = e.touches[0].clientY;
+});
+
+world.addEventListener("touchend",()=>{
+
+    dragging = false;
+});
+
+/* =========================
+   礼盒1
+========================= */
+
+box1.addEventListener("click",()=>{
+
+    if(stage !== 0) return;
+
+    box1.classList.add("open");
+
+    burstConfetti();
+
+    setTimeout(()=>{
+
+        box2.classList.remove("hidden");
+
+    },1200);
+
+    stage = 1;
+});
+
+/* =========================
+   礼盒2
+========================= */
+
+box2.addEventListener("click",()=>{
+
+    if(stage !== 1) return;
+
+    box2.classList.add("open");
+
+    burstConfetti();
+
+    setTimeout(()=>{
+
+        box3.classList.remove("hidden");
+
+    },1200);
+
+    stage = 2;
+});
+
+/* =========================
+   礼盒3
+========================= */
+
+box3.addEventListener("click",()=>{
+
+    if(stage !== 2) return;
+
+    box3.classList.add("open");
+
+    burstConfetti();
+
+    setTimeout(()=>{
+
+        bookContainer.classList.remove("hidden");
+
+    },1200);
+
+    stage = 3;
+});
+
+/* =========================
+   书本
+========================= */
+
+book.addEventListener("click",()=>{
+
+    if(stage !== 3) return;
+
+    book.classList.add("book-open");
+
+    stage = 4;
+
+    setTimeout(()=>{
+
+        showLetter();
+
+        stage = 5;
+
+    },1600);
+});
+
+/* =========================
+   信件
+========================= */
+
+function showLetter(){
+
+    letterCard.classList.add("show");
+
+    const text =
+
+`首先还是祝你生日快乐，祝你大学四年不为期末考试困扰，每天都有个好心情，其他套话我就不说了。
+
+其次，上次没打成现在还是有点遗憾，暑假有空一定要和你打一场，这次我来订场。早想看看你打得怎么样了。
+
+最后，虽然很难线下见面了，但是希望还是能常常联系呀，今年算是我们认识的12年了吧？
+
+希望还能一直是朋友，
+
+愿友谊长存！`;
+
+    let index = 0;
+
+    typingText.innerHTML = "";
+
+    function type(){
+
+        if(index >= text.length){
+
+            burstMegaFireworks();
+
+            return;
         }
 
-        requestAnimationFrame(draw);
+        typingText.innerHTML += text[index];
+
+        index++;
+
+        setTimeout(type,45);
     }
 
-    draw();
+    type();
 }
 
 /* =========================
@@ -122,270 +313,287 @@ function initHearts(){
 
     setInterval(()=>{
 
-        const h = document.createElement("div");
-        h.className = "heart";
-        h.innerHTML = "❤";
+        const heart =
+        document.createElement("div");
 
-        h.style.left = Math.random()*100 + "vw";
-        h.style.top = "100vh";
+        heart.className = "heart";
 
-        h.style.fontSize = (16 + Math.random()*18) + "px";
+        heart.innerHTML = "❤";
 
-        hearts.appendChild(h);
+        heart.style.left =
+        Math.random()*100 + "vw";
 
-        setTimeout(()=>h.remove(),6000);
+        heart.style.top =
+        "100vh";
 
-    },600);
+        heart.style.fontSize =
+        (16 + Math.random()*24) + "px";
+
+        hearts.appendChild(heart);
+
+        setTimeout(()=>{
+
+            heart.remove();
+
+        },6000);
+
+    },500);
 }
 
 /* =========================
-   彩带（一次性）
+   彩带
 ========================= */
 
 function burstConfetti(){
 
-    for(let i=0;i<80;i++){
+    const colors =
 
-        const c = document.createElement("div");
-        c.className = "confetti-piece";
+    [
+        "#ff6ba5",
+        "#ffd54f",
+        "#6bcfff",
+        "#a5ff6b",
+        "#ffffff"
+    ];
 
-        c.style.left = Math.random()*100 + "vw";
-        c.style.top = "-10px";
+    for(let i=0;i<60;i++){
 
-        const colors = ["#ff6fae","#ffd84d","#6bd6ff","#9bff6b"];
+        const piece =
+        document.createElement("div");
 
-        c.style.background =
-        colors[Math.floor(Math.random()*colors.length)];
+        piece.className =
+        "confetti-piece";
 
-        confetti.appendChild(c);
+        piece.style.left =
+        Math.random()*100 + "vw";
 
-        setTimeout(()=>c.remove(),3000);
+        piece.style.top =
+        "-20px";
+
+        piece.style.background =
+        colors[
+            Math.floor(
+                Math.random()*colors.length
+            )
+        ];
+
+        confetti.appendChild(piece);
+
+        setTimeout(()=>{
+
+            piece.remove();
+
+        },3000);
     }
 }
 
 /* =========================
-   烟花（最终）
+   星空
 ========================= */
+
+function initStars(){
+
+    const ctx =
+    starsCanvas.getContext("2d");
+
+    starsCanvas.width =
+    window.innerWidth;
+
+    starsCanvas.height =
+    window.innerHeight;
+
+    let stars = [];
+
+    for(let i=0;i<150;i++){
+
+        stars.push({
+
+            x:
+            Math.random()
+            * starsCanvas.width,
+
+            y:
+            Math.random()
+            * starsCanvas.height,
+
+            r:
+            Math.random()*2,
+
+            a:
+            Math.random()
+        });
+    }
+
+    function animate(){
+
+        ctx.clearRect(
+            0,
+            0,
+            starsCanvas.width,
+            starsCanvas.height
+        );
+
+        stars.forEach(s=>{
+
+            ctx.beginPath();
+
+            ctx.arc(
+                s.x,
+                s.y,
+                s.r,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fillStyle =
+            `rgba(
+                255,
+                255,
+                255,
+                ${s.a}
+            )`;
+
+            ctx.fill();
+
+            s.a +=
+            (Math.random()-0.5)
+            *0.02;
+
+            s.a =
+            Math.max(
+                0.2,
+                Math.min(1,s.a)
+            );
+        });
+
+        requestAnimationFrame(
+            animate
+        );
+    }
+
+    animate();
+}
+
+/* =========================
+   烟花
+========================= */
+
+let particles = [];
 
 function initFireworks(){
 
-    const ctx = fireCanvas.getContext("2d");
+    const ctx =
+    fireCanvas.getContext("2d");
 
-    fireCanvas.width = innerWidth;
-    fireCanvas.height = innerHeight;
+    fireCanvas.width =
+    window.innerWidth;
 
-    let particles = [];
+    fireCanvas.height =
+    window.innerHeight;
 
-    function spawn(){
+    function animate(){
 
-        if(stage < 3) return; // 只在最后阶段出现
+        ctx.clearRect(
+            0,
+            0,
+            fireCanvas.width,
+            fireCanvas.height
+        );
 
-        for(let i=0;i<25;i++){
-
-            particles.push({
-                x:Math.random()*fireCanvas.width,
-                y:fireCanvas.height,
-                vx:(Math.random()-0.5)*3,
-                vy:-Math.random()*6,
-                life:100
-            });
-        }
-    }
-
-    function draw(){
-
-        ctx.fillStyle = "rgba(0,0,0,0.18)";
-        ctx.fillRect(0,0,fireCanvas.width,fireCanvas.height);
-
-        for(let p of particles){
+        particles.forEach((p,i)=>{
 
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += 0.05;
+
             p.life--;
 
             ctx.beginPath();
-            ctx.arc(p.x,p.y,2,0,Math.PI*2);
-            ctx.fillStyle = "#ffb3d9";
+
+            ctx.arc(
+                p.x,
+                p.y,
+                2,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fillStyle =
+            p.color;
+
             ctx.fill();
-        }
 
-        particles = particles.filter(p=>p.life>0);
+            if(p.life<=0){
 
-        requestAnimationFrame(draw);
+                particles.splice(i,1);
+            }
+        });
+
+        requestAnimationFrame(
+            animate
+        );
     }
 
-    setInterval(spawn,1200);
-    draw();
+    animate();
 }
 
-/* =========================
-   拖动旋转（手机+电脑）
-========================= */
+function burstMegaFireworks(){
 
-let rx = -18;
-let ry = 25;
+    const colors =
 
-let dragging = false;
-let lastX = 0;
-let lastY = 0;
+    [
+        "#ff6ba5",
+        "#ffd54f",
+        "#6bcfff",
+        "#a5ff6b",
+        "#ffffff"
+    ];
 
-function bindEvents(){
-
-    updateWorld();
-
-    world.addEventListener("mousedown",e=>{
-        dragging = true;
-        lastX = e.clientX;
-        lastY = e.clientY;
-    });
-
-    window.addEventListener("mouseup",()=>{
-        dragging = false;
-    });
-
-    window.addEventListener("mousemove",e=>{
-        if(!dragging) return;
-
-        let dx = e.clientX - lastX;
-        let dy = e.clientY - lastY;
-
-        ry += dx * 0.4;
-        rx -= dy * 0.4;
-
-        updateWorld();
-
-        lastX = e.clientX;
-        lastY = e.clientY;
-    });
-
-    world.addEventListener("touchstart",e=>{
-        dragging = true;
-        lastX = e.touches[0].clientX;
-        lastY = e.touches[0].clientY;
-    });
-
-    world.addEventListener("touchmove",e=>{
-        if(!dragging) return;
-
-        let dx = e.touches[0].clientX - lastX;
-        let dy = e.touches[0].clientY - lastY;
-
-        ry += dx * 0.4;
-        rx -= dy * 0.4;
-
-        updateWorld();
-
-        lastX = e.touches[0].clientX;
-        lastY = e.touches[0].clientY;
-    });
-
-    world.addEventListener("touchend",()=>{
-        dragging = false;
-    });
-
-    /* 礼盒点击 */
-
-    box1.onclick = ()=>openBox(1);
-    box2.onclick = ()=>openBox(2);
-    box3.onclick = ()=>openBox(3);
-}
-
-function updateWorld(){
-    world.style.transform =
-    `rotateX(${rx}deg) rotateY(${ry}deg)`;
-}
-
-/* =========================
-   礼盒逻辑
-========================= */
-
-function openBox(level){
-
-    if(level === 1 && stage === 0){
-
-        box1.classList.add("open");
-
-        setTimeout(()=>{
-            box2.classList.remove("hidden");
-            box2.style.transform = "translateY(-120px)";
-        },800);
-
-        burstConfetti();
-
-        stage = 1;
-    }
-
-    else if(level === 2 && stage === 1){
-
-        box2.classList.add("open");
-
-        setTimeout(()=>{
-            box3.classList.remove("hidden");
-            box3.style.transform = "translateY(-220px)";
-        },800);
-
-        stage = 2;
-    }
-
-    else if(level === 3 && stage === 2){
-
-        box3.classList.add("open");
+    for(let n=0;n<8;n++){
 
         setTimeout(()=>{
 
-            showCake();
-            showLetter();
+            let centerX =
+            Math.random()
+            * fireCanvas.width;
 
-            stage = 3;
+            let centerY =
+            100 +
+            Math.random()*300;
 
-        },900);
+            for(let i=0;i<80;i++){
+
+                let angle =
+                Math.random()
+                * Math.PI*2;
+
+                let speed =
+                Math.random()*4+2;
+
+                particles.push({
+
+                    x:centerX,
+                    y:centerY,
+
+                    vx:
+                    Math.cos(angle)
+                    * speed,
+
+                    vy:
+                    Math.sin(angle)
+                    * speed,
+
+                    color:
+                    colors[
+                        Math.floor(
+                        Math.random()
+                        * colors.length
+                        )
+                    ],
+
+                    life:100
+                });
+            }
+
+        },n*500);
     }
-}
-
-/* =========================
-   蛋糕
-========================= */
-
-function showCake(){
-
-    cakeContainer.classList.remove("hidden");
-
-    cakeContainer.style.opacity = "0";
-
-    setTimeout(()=>{
-
-        cakeContainer.style.opacity = "1";
-
-        cakeContainer.style.transform =
-        "translate(-50%,-50%) scale(1.1)";
-
-    },100);
-}
-
-/* =========================
-   祝福信（空内容）
-========================= */
-
-function showLetter(){
-
-    letterCard.classList.add("show");
-
-    const text =
-``;   // 👈 这里留空，你后面自己填
-
-    let i = 0;
-
-    function type(){
-
-        if(i < text.length){
-
-            typingText.innerHTML += text[i];
-            i++;
-
-            setTimeout(type,60);
-        }
-    }
-
-    type();
 }
